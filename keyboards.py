@@ -7,4 +7,4 @@ menu_keyboard = [[InlineKeyboardButton("Мероприятия", callback_data='
             [InlineKeyboardButton("Тех.поддержка", callback_data='support')],
             ]
 
-contact_keyboard = KeyboardButton('\U0001F4DE Поделиться контактом', request_contact=True, web_app=True)
+contact_keyboard = KeyboardButton('\U0001F4DE Поделиться контактом', request_contact=True)
