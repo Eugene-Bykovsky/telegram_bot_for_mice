@@ -1,8 +1,10 @@
-from telegram import InlineKeyboardButton
+from telegram import InlineKeyboardButton, KeyboardButton
 
-keyboard = [[InlineKeyboardButton("Мероприятия", callback_data='events')],
+menu_keyboard = [[InlineKeyboardButton("Мероприятия", callback_data='events')],
             [InlineKeyboardButton("Личный кабинет", callback_data='lk')],
             [InlineKeyboardButton("Трансляция", callback_data='stream')],
             [InlineKeyboardButton("Трансфер", callback_data='transfer')],
             [InlineKeyboardButton("Тех.поддержка", callback_data='support')],
             ]
+
+contact_keyboard = KeyboardButton('\U0001F4DE Поделиться контактом', request_contact=True, web_app=True)

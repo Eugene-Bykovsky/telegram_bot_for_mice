@@ -1,7 +1,7 @@
 from telegram import InlineKeyboardMarkup
-from keyboard import keyboard
+from keyboards import menu_keyboard
 
-reply_markup = InlineKeyboardMarkup(keyboard, resize_keyboard=True)
+reply_markup = InlineKeyboardMarkup(menu_keyboard, resize_keyboard=True)
 
 
 def say_hi(update, context):
