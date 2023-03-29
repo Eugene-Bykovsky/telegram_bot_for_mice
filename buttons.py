@@ -47,7 +47,7 @@ def button_lk(update, context):
     custom_keyboard = [[contact_keyboard]]
     reply_markup_lk = ReplyKeyboardMarkup(custom_keyboard)
     context.bot.send_message(chat_id=chat_id,
-                             text="Для входа авторизуйтесь. Для этого нажмите кнопку 'Поделиться контактом'",
+                             text="Для входа необходимо авторизоваться. Для этого нажмите кнопку 'Поделиться контактом'",
                              reply_markup=reply_markup_lk)
     return "WAITING_CONTACT"
 

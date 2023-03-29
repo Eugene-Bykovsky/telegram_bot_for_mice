@@ -1,5 +1,6 @@
 from telegram import InlineKeyboardMarkup, ReplyKeyboardRemove
 from keyboards import menu_keyboard
+from buttons import button_lk
 
 reply_markup = InlineKeyboardMarkup(menu_keyboard)
 
@@ -23,15 +24,16 @@ def get_contact(update, context):
     chat_id = update.effective_chat.id
     contact = update.message.contact
     if contact and contact.user_id == update.message.from_user.id:
-        context.bot.send_message(chat_id=chat_id,
-                                 text="Вы отправили свой контакт!")
-        # обрабатываем полученный контакт
-        # ...
-        # удаляем клавиатуру
         reply_markup_remove = ReplyKeyboardRemove()
         context.bot.send_message(chat_id=chat_id,
-                                text="Спасибо за ваш контакт!",
-                                reply_markup=reply_markup_remove)
+                                 text="Спасибо!Загружаю данные.",
+                                 reply_markup=reply_markup_remove)
+        # обрабатываем полученный контакт
+        # Делаем запрос в базу и показываем сертификат
+        # удаляем клавиатуру
+        # context.bot.send_message(chat_id=chat_id,
+        #                         text="Спасибо за ваш контакт!",
+        #                         reply_markup=reply_markup_remove)
     else:
         context.bot.send_message(chat_id=chat_id,
                                  text="Вы отправили чужой контакт!")
