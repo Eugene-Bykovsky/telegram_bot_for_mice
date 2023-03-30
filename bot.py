@@ -4,7 +4,7 @@ from telegram import Bot
 from telegram.ext import Updater, Filters, MessageHandler, CallbackQueryHandler, CommandHandler
 
 from dotenv import load_dotenv
-from buttons import button_events, button_online, button_lk
+from buttons import button_events, button_online, button_offline, button_lk
 from functions import say_hi, start, get_contact
 
 load_dotenv()
@@ -24,6 +24,7 @@ updater = Updater(token)
 updater.dispatcher.add_handler(MessageHandler(Filters.text, say_hi))
 updater.dispatcher.add_handler(CallbackQueryHandler(button_events, pattern='events'))
 updater.dispatcher.add_handler(CallbackQueryHandler(button_online, pattern='online'))
+updater.dispatcher.add_handler(CallbackQueryHandler(button_offline, pattern='offline'))
 updater.dispatcher.add_handler(CallbackQueryHandler(button_lk, pattern='lk'))
 updater.dispatcher.add_handler(CommandHandler('start', start))
 updater.dispatcher.add_handler(MessageHandler(Filters.contact, get_contact))

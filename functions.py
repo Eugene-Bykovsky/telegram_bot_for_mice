@@ -28,18 +28,8 @@ def get_contact(update, context):
         context.bot.send_message(chat_id=chat_id,
                                  text="Спасибо!Загружаю данные.",
                                  reply_markup=reply_markup_remove)
-        # обрабатываем полученный контакт
-        # Делаем запрос в базу и показываем сертификат
-        # удаляем клавиатуру
-        # context.bot.send_message(chat_id=chat_id,
-        #                         text="Спасибо за ваш контакт!",
-        #                         reply_markup=reply_markup_remove)
     else:
         context.bot.send_message(chat_id=chat_id,
                                  text="Вы отправили чужой контакт!")
 
 
-# def send_message(message):
-#     bot.send_message(chat_id, message)
-
-# send_message('The Matrix has you')

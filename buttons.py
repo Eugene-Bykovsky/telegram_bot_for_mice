@@ -18,17 +18,31 @@ def button_events(update, context):
 
 def button_online(update, context):
     chat_id = update.effective_chat.id
-    context.bot.send_message(chat_id,
-                             text='Выберите тип мероприятия',
-                             reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('Онлайн', callback_data='online'),
-                                                                 InlineKeyboardButton('Оффлайн',
-                                                                                      callback_data='offline')
-                                                                 ]]))
     mydb, mycursor = connect_to_db()
     # # Получаем текущее Unix время
     current_time = int(time.time())
     # # Запрашиваем данные из базы данных
     sql = "SELECT DISTINCT themes, dateOn, url FROM dp_events WHERE dateOn > %s and city LIKE '%нлайн%' and url is not null ORDER BY dateOn"
+    mycursor.execute(sql, (current_time,))
+    myresult = mycursor.fetchall()
+    # print(myresult)
+    # # Формируем список мероприятий
+    events_list = ''
+    for x in myresult:
+        date_time = datetime.datetime.fromtimestamp(x[1])
+        events_list += '&#128214 {} \n&#128467 Дата: {} \n &#127760 <a href="{}">Страница мероприятия</a> \n\n'.format(x[0], date_time.strftime(
+            "%d-%m-%Y"), x[2])
+    # # Отправляем список мероприятий
+    context.bot.send_message(chat_id=chat_id, text=events_list, parse_mode=ParseMode.HTML)
+
+
+def button_offline(update, context):
+    chat_id = update.effective_chat.id
+    mydb, mycursor = connect_to_db()
+    # # Получаем текущее Unix время
+    current_time = int(time.time())
+    # # Запрашиваем данные из базы данных
+    sql = "SELECT DISTINCT themes, dateOn, url FROM dp_events WHERE dateOn > %s and city NOT LIKE '%нлайн%' and url is not null ORDER BY dateOn"
     mycursor.execute(sql, (current_time,))
     myresult = mycursor.fetchall()
     # print(myresult)
