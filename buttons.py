@@ -1,4 +1,4 @@
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.parsemode import ParseMode
 from db import connect_to_db
 from keyboards import contact_keyboard
@@ -25,7 +25,6 @@ def button_online(update, context):
     sql = "SELECT DISTINCT themes, dateOn, url FROM dp_events WHERE dateOn > %s and city LIKE '%нлайн%' and url is not null ORDER BY dateOn"
     mycursor.execute(sql, (current_time,))
     myresult = mycursor.fetchall()
-    # print(myresult)
     # # Формируем список мероприятий
     events_list = ''
     for x in myresult:
@@ -45,7 +44,6 @@ def button_offline(update, context):
     sql = "SELECT DISTINCT themes, dateOn, url FROM dp_events WHERE dateOn > %s and city NOT LIKE '%нлайн%' and url is not null ORDER BY dateOn"
     mycursor.execute(sql, (current_time,))
     myresult = mycursor.fetchall()
-    # print(myresult)
     # # Формируем список мероприятий
     events_list = ''
     for x in myresult:
@@ -64,4 +62,11 @@ def button_lk(update, context):
                              text="Для входа необходимо авторизоваться. Для этого нажмите кнопку 'Поделиться контактом'",
                              reply_markup=reply_markup_lk)
     return "WAITING_CONTACT"
+
+
+def button_support(update, context):
+    query = update.callback_query
+    user = query.from_user
+    query.answer()
+    query.edit_message_text(f'Присоединяйтесь к группе техподдержки: https://t.me/+NI-a_LiklBI2MWUy\n{user.first_name}, вы можете задать свой вопрос там.')
 
