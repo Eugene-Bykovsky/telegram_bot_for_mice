@@ -4,7 +4,7 @@ from telegram import Bot
 from telegram.ext import Updater, Filters, MessageHandler, CallbackQueryHandler, CommandHandler
 
 from dotenv import load_dotenv
-from buttons import button_events, button_online, button_offline, button_lk, button_support
+from buttons import button_events, button_online, button_offline, button_lk, button_support, button_transfer
 from functions import say_hi, start, get_contact
 
 load_dotenv()
@@ -27,6 +27,8 @@ updater.dispatcher.add_handler(CallbackQueryHandler(button_online, pattern='onli
 updater.dispatcher.add_handler(CallbackQueryHandler(button_offline, pattern='offline'))
 updater.dispatcher.add_handler(CallbackQueryHandler(button_lk, pattern='lk'))
 updater.dispatcher.add_handler(CallbackQueryHandler(button_support, pattern='support'))
+updater.dispatcher.add_handler(CallbackQueryHandler(button_transfer, pattern='transfer'))
+# updater.dispatcher.add_handler(CallbackQueryHandler(button_stream, pattern='stream'))
 updater.dispatcher.add_handler(CommandHandler('start', start))
 updater.dispatcher.add_handler(MessageHandler(Filters.contact, get_contact))
 

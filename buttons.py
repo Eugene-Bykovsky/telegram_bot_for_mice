@@ -1,9 +1,13 @@
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
 from telegram.parsemode import ParseMode
 from db import connect_to_db
 from keyboards import contact_keyboard
 import time
 import datetime
+import subprocess
+import cv2
+import numpy as np
+
 
 
 def button_events(update, context):
@@ -59,7 +63,7 @@ def button_lk(update, context):
     custom_keyboard = [[contact_keyboard]]
     reply_markup_lk = ReplyKeyboardMarkup(custom_keyboard)
     context.bot.send_message(chat_id=chat_id,
-                             text="Для входа необходимо авторизоваться. Для этого нажмите кнопку 'Поделиться контактом'",
+                             text="Для входа необходимо авторизоваться. Для этого нажмите кнопку 'Поделиться контактом'\nВнимание! Авторизоваться и войти в личный кабинет можно только с мобильной версии телеграм",
                              reply_markup=reply_markup_lk)
     return "WAITING_CONTACT"
 
@@ -68,5 +72,16 @@ def button_support(update, context):
     query = update.callback_query
     user = query.from_user
     query.answer()
-    query.edit_message_text(f'Присоединяйтесь к группе техподдержки: https://t.me/+NI-a_LiklBI2MWUy\n{user.first_name}, вы можете задать свой вопрос там.')
+    query.message.reply_text(f'{user.first_name}, Вы можете задать свой вопрос в нашей группе техподдержки: https://t.me/+NI-a_LiklBI2MWUy\n.')
 
+
+def button_transfer(update, context):
+    query = update.callback_query
+    query.answer()
+    query.message.reply_text('Для регистрации на трансфер перейдите по ссылке: https://travel.micepartner.ru')
+
+
+# def button_stream(update, context):
+    # query = update.callback_query
+    # query.answer()
+    # query.message.reply_text('Для регистрации на трансфер перейдите по ссылке: https://travel.micepartner.ru')
