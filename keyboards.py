@@ -4,7 +4,7 @@ menu_keyboard = [[InlineKeyboardButton("Мероприятия", callback_data='
             [InlineKeyboardButton("Личный кабинет", callback_data='lk')],
             [InlineKeyboardButton("Трансляция", callback_data='stream')],
             [InlineKeyboardButton("Трансфер", callback_data='transfer')],
-            [InlineKeyboardButton("Тех.поддержка", callback_data='support')],
+            [InlineKeyboardButton("Техподдержка", callback_data='support')],
             ]
 
 contact_keyboard = KeyboardButton('\U0001F4DE Поделиться контактом', request_contact=True)

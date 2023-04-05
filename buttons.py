@@ -4,10 +4,6 @@ from db import connect_to_db
 from keyboards import contact_keyboard
 import time
 import datetime
-import subprocess
-import cv2
-import numpy as np
-
 
 
 def button_events(update, context):
@@ -81,7 +77,19 @@ def button_transfer(update, context):
     query.message.reply_text('Для регистрации на трансфер перейдите по ссылке: https://travel.micepartner.ru')
 
 
-# def button_stream(update, context):
-    # query = update.callback_query
-    # query.answer()
-    # query.message.reply_text('Для регистрации на трансфер перейдите по ссылке: https://travel.micepartner.ru')
+def button_stream(update, context):
+    chat_id = update.effective_chat.id
+    mydb, mycursor = connect_to_db()
+    # # Получаем текущее Unix время
+    current_time = int(time.time())
+    current_day = time.strftime('%d', time.localtime(current_time))
+    print(current_time, current_day)
+    sql = "SELECT themes FROM dp_events WHERE dateOn >= %s AND dateOn < %s AND stream is not null ORDER BY dateOn"
+    mycursor.execute(sql, (int(current_time) - 86400, int(current_time) + 86400))
+    myresult = mycursor.fetchall()
+    # # Формируем список мероприятий
+    events_list = ''
+    for x in myresult:
+        events_list += 'Доступные трансляции: \n\n &#128214 {} \n &#127760 <a href="https://stream.micepartner.ru">Страница трансляции</a>'.format(x[0])
+    # # Отправляем список мероприятий
+    context.bot.send_message(chat_id=chat_id, text=events_list, parse_mode=ParseMode.HTML)
