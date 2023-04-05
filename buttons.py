@@ -29,8 +29,9 @@ def button_online(update, context):
     events_list = ''
     for x in myresult:
         date_time = datetime.datetime.fromtimestamp(x[1])
-        events_list += '&#128214 {} \n&#128467 Дата: {} \n &#127760 <a href="{}">Страница мероприятия</a> \n\n'.format(x[0], date_time.strftime(
-            "%d-%m-%Y"), x[2])
+        events_list += '&#128214 {} \n&#128467 Дата: {} \n &#127760 <a href="{}">Страница мероприятия</a> \n\n'.format(
+            x[0], date_time.strftime(
+                "%d-%m-%Y"), x[2])
     # # Отправляем список мероприятий
     context.bot.send_message(chat_id=chat_id, text=events_list, parse_mode=ParseMode.HTML)
 
@@ -48,8 +49,9 @@ def button_offline(update, context):
     events_list = ''
     for x in myresult:
         date_time = datetime.datetime.fromtimestamp(x[1])
-        events_list += '&#128214 {} \n&#128467 Дата: {} \n &#127760 <a href="{}">Страница мероприятия</a> \n\n'.format(x[0], date_time.strftime(
-            "%d-%m-%Y"), x[2])
+        events_list += '&#128214 {} \n&#128467 Дата: {} \n &#127760 <a href="{}">Страница мероприятия</a> \n\n'.format(
+            x[0], date_time.strftime(
+                "%d-%m-%Y"), x[2])
     # # Отправляем список мероприятий
     context.bot.send_message(chat_id=chat_id, text=events_list, parse_mode=ParseMode.HTML)
 
@@ -68,7 +70,8 @@ def button_support(update, context):
     query = update.callback_query
     user = query.from_user
     query.answer()
-    query.message.reply_text(f'{user.first_name}, Вы можете задать свой вопрос в нашей группе техподдержки: https://t.me/+NI-a_LiklBI2MWUy\n.')
+    query.message.reply_text(
+        f'{user.first_name}, Вы можете задать свой вопрос в нашей группе техподдержки: https://t.me/+NI-a_LiklBI2MWUy\n.')
 
 
 def button_transfer(update, context):
@@ -90,6 +93,7 @@ def button_stream(update, context):
     # # Формируем список мероприятий
     events_list = ''
     for x in myresult:
-        events_list += 'Доступные трансляции: \n\n &#128214 {} \n &#127760 <a href="https://stream.micepartner.ru">Страница трансляции</a>'.format(x[0])
+        events_list += 'Доступные трансляции: \n\n &#128214 {} \n &#127760 <a href="https://stream.micepartner.ru">Страница трансляции</a>'.format(
+            x[0])
     # # Отправляем список мероприятий
     context.bot.send_message(chat_id=chat_id, text=events_list, parse_mode=ParseMode.HTML)
