@@ -71,7 +71,7 @@ def button_support(update, context):
     user = query.from_user
     query.answer()
     query.message.reply_text(
-        f'{user.first_name}, Вы можете задать свой вопрос в нашей группе техподдержки: https://t.me/+NI-a_LiklBI2MWUy\n.')
+        f'{user.first_name}, пожалуйста, напишите нам свой вопрос на почту help@micepartner.ru')
 
 
 def button_transfer(update, context):
