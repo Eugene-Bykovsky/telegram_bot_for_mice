@@ -87,7 +87,7 @@ def button_stream(update, context):
     current_time = int(time.time())
     current_day = time.strftime('%d', time.localtime(current_time))
     print(current_time, current_day)
-    sql = "SELECT themes FROM dp_events WHERE dateOn >= %s AND dateOn < %s AND stream is not null ORDER BY dateOn"
+    sql = "SELECT themes FROM dp_events WHERE dateOn >= %s AND dateOn < %s AND stream !=0 ORDER BY dateOn"
     mycursor.execute(sql, (int(current_time) - 86400, int(current_time) + 86400))
     myresult = mycursor.fetchall()
     # # Формируем список мероприятий
