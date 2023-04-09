@@ -97,9 +97,10 @@ def get_contact(update, context):
               if not user_serts:
                   context.bot.send_message(chat_id=chat_id, text='Список мероприятий пуст', parse_mode='HTML')
               else:
+                  cert_list += f'<b>Ваши коды НМО:</b>\n'
                   for x in user_serts:
                       date_time = datetime.datetime.fromtimestamp(x[0])
-                      cert_list += f'<b>Ваши коды НМО:</b>\n\n&#128467<b>Дата</b>:\n {date_time.strftime("%d-%m-%Y")} \n&#128214<b>Название</b>\n {x[3]} \n <b>Ваш ИКП:</b>\n {x[6]} \n\n'
+                      cert_list += f'\n&#128467<b>Дата</b>:\n {date_time.strftime("%d-%m-%Y")} \n&#128214<b>Название</b>\n {x[3]} \n <b>Ваш ИКП:</b>\n {x[6]} \n\n'
                   context.bot.send_message(chat_id=chat_id, text=cert_list, parse_mode='HTML')
               now = datetime.datetime.now()
               current_time = now.strftime("%H:%M %d.%m.%Y")

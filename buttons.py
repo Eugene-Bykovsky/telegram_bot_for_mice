@@ -86,14 +86,17 @@ def button_stream(update, context):
     # # Получаем текущее Unix время
     current_time = int(time.time())
     current_day = time.strftime('%d', time.localtime(current_time))
-    print(current_time, current_day)
+    # print(current_time, current_day)
     sql = "SELECT themes FROM dp_events WHERE dateOn >= %s AND dateOn < %s AND stream !=0 ORDER BY dateOn"
     mycursor.execute(sql, (int(current_time) - 86400, int(current_time) + 86400))
     myresult = mycursor.fetchall()
     # # Формируем список мероприятий
-    events_list = ''
-    for x in myresult:
-        events_list += 'Доступные трансляции: \n\n &#128214 {} \n &#127760 <a href="https://stream.micepartner.ru">Страница трансляции</a>'.format(
-            x[0])
-    # # Отправляем список мероприятий
-    context.bot.send_message(chat_id=chat_id, text=events_list, parse_mode=ParseMode.HTML)
+    if len(myresult) >= 1:
+        events_list = ''
+        for x in myresult:
+            events_list += 'Доступные трансляции: \n\n &#128214 {} \n &#127760 <a href="https://stream.micepartner.ru">Страница трансляции</a>'.format(
+                x[0])
+        # # Отправляем список мероприятий
+        context.bot.send_message(chat_id=chat_id, text=events_list, parse_mode=ParseMode.HTML)
+    else:
+        context.bot.send_message(chat_id=chat_id, text="Сейчас нет доступных трансляций")
