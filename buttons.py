@@ -83,12 +83,8 @@ def button_transfer(update, context):
 def button_stream(update, context):
     chat_id = update.effective_chat.id
     mydb, mycursor = connect_to_db()
-    # # Получаем текущее Unix время
-    current_time = int(time.time())
-    current_day = time.strftime('%d', time.localtime(current_time))
-    # print(current_time, current_day)
-    sql = "SELECT themes FROM dp_events WHERE dateOn >= %s AND dateOn < %s AND stream !=0 ORDER BY dateOn"
-    mycursor.execute(sql, (int(current_time) - 86400, int(current_time) + 86400))
+    sql = "SELECT themes FROM dp_events WHERE CURDATE() BETWEEN DATE(FROM_UNIXTIME(dateOn)) AND DATE(FROM_UNIXTIME(dateOff)) AND nochoose = 0"
+    mycursor.execute(sql)
     myresult = mycursor.fetchall()
     # # Формируем список мероприятий
     if len(myresult) >= 1:
